@@ -1,5 +1,5 @@
 // pages/index.tsx
-import { useState } from 'react';
+import { ReactChild, ReactFragment, ReactPortal, useState } from 'react';
 
 export default function LandingPage() {
     const [profileUrl, setProfileUrl] = useState('');
@@ -107,15 +107,37 @@ export default function LandingPage() {
                                 <td style={{ border: '1px solid black', padding: '8px', textAlign: 'center' }}>{result.finalTier}</td>
                             </tr>
                             
-                            <tr>
-                                <td style={{ border: '3px solid black', padding: '8px', textAlign: 'center' }}>
-                                    Tier {result.finalTier} {result.tier1Complete && result.tier2Complete && result.tier3Complete ? ', Complete 全部完成 🎉' : ''} { !result.finalTier ? '❌' : '✅'}
-                                </td>
-                            </tr>
-                            {result.oldSkillBadgesSet}
-                            {result.oldNonSkillBadgesSet}
-                            
                         </tbody>
+                    </table>
+
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Old Skill Badges</th>
+                        </tr>
+                        </thead>
+                        { result && (
+                        <tbody>
+                            {result.oldSkillBadgesSet.map((item: boolean | ReactChild | ReactFragment | ReactPortal | null | undefined, idx: number) => (
+                                <tr key={idx}><td>{item}</td></tr>
+                            ))}
+                        </tbody>
+                        )}
+                    </table>
+
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Old Completed Badges</th>
+                        </tr>
+                        </thead>
+                        { result && (
+                        <tbody>
+                            {result.oldNonSkillBadgesSet.map((item: boolean | ReactChild | ReactFragment | ReactPortal | null | undefined, idx: number) => (
+                                <tr key={idx}><td>{item}</td></tr>
+                            ))}
+                        </tbody>
+                        )}
                     </table>
 
                     <h3>Additions</h3>

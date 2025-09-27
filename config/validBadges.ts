@@ -411,7 +411,7 @@
 //     }
 // }
 
-const skillBadgeTrue: Set<string> = new Set([
+export const skillBadgeTrue: Set<string> = new Set([
   "The Basics of Google Cloud Compute",
   "Create and Manage Cloud Resources",
   "Set Up an App Dev Environment on Google Cloud",
@@ -441,7 +441,7 @@ const skillBadgeTrue: Set<string> = new Set([
   "Inspect Rich Documents with Gemini Multimodality and Multimodal RAG (single)"
 ]);
 
-const skillBadgeFalse: Set<string> = new Set([
+export const skillBadgeFalse: Set<string> = new Set([
   "Introduction to Generative AI",
   "Introduction to Large Language Models",
   "Introduction to Responsible AI",

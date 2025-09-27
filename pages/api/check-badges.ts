@@ -1,7 +1,7 @@
 // pages/api/check-badges.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { JSDOM } from 'jsdom';
-import { validBadges, dateRange, skillBadgeTrue, skillBadgeFalse, tiers } from '../../config/validBadges';
+import { dateRange, skillBadgeTrue, skillBadgeFalse } from '../../config/validBadges';
 
 // Helper function to compare dates
 const isDateInRange = (badgeDate: Date, startDate: Date, endDate: Date): boolean => {
@@ -23,13 +23,11 @@ const parseBadgeDate = (dateStr: string): Date => {
 };
 
 function renderSetToTableWithHeader(set: Set<string>, skill: string): string {
-  let html = "<table border='1'>";
-  html += "<thead><tr><th>Old " + skill + " Badges</th></tr></thead>";  // Column header
-  html += "<tbody>";
+  let html = "";
+  html += "Old " + skill + " Badges<br>";  // Column header
   Array.from(set).forEach((item) => {
-    html += `<tr><td>${item}</td></tr>`;
+    html += `${item}<br>`;
   });
-  html += "</tbody></table>";
   return html;
 }
 
@@ -121,26 +119,26 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             });
         });
 
-        let tier1Status = False;
-        let tier2Status = False;
-        let tier3Status = False;
+        let tier1Status = false;
+        let tier2Status = false;
+        let tier3Status = false;
         
         if (skillBadgesCount >= 4 && (skillBadgesCount + nonSkillBadgesCount) >= 10) {
             finalTier = 1;
-            tier1Status = True;
+            tier1Status = true;
         }
         if (skillBadgesCount >= 8 && (skillBadgesCount + nonSkillBadgesCount) >= 20) {
             finalTier = 2;
-            tier2Status = True;
+            tier2Status = true;
         }
         if (skillBadgesCount >= 12 && (skillBadgesCount + nonSkillBadgesCount) >= 30) {
             finalTier = 3;
-            tier3Status = True;
+            tier3Status = true;
         }
 
-        const oldSkillBadgeTable = renderSetToTableWithHeader(oldSkillBadgesSet, "Skill");
-        const oldNoneSkillBadgeTable = renderSetToTableWithHeader(oldNonSkillBadgesSet, "Completed");
-        
+        const oldSkillBadgesArray = Array.from(oldSkillBadgesSet);
+        const oldCompletedBadgesArray = Array.from(oldNonSkillBadgesSet);
+
         // Send the result as a response
         res.status(200).json({
             finalTier,
@@ -153,8 +151,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             oldSkillBadgesCount: oldSkillBadgesCount,
             oldNonSkillBadgesCount: oldNonSkillBadgesCount,
             totalOldBadgesCount: oldSkillBadgesCount + oldNonSkillBadgesCount,
-            oldSkillBadgesSet: oldSkillBadgeTable,
-            oldNonSkillBadgesSet: oldNoneSkillBadgeTable,
+            oldSkillBadgesSet: oldSkillBadgesArray,
+            oldNonSkillBadgesSet: oldCompletedBadgesArray,
             outOfRangeCount,
         });
     } catch (error) {
