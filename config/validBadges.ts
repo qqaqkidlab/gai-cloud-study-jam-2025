@@ -542,6 +542,6 @@ export const validBadges = {
 };
 
 export const dateRange = {
-    startDate: '2024-10-02',
-    endDate: '2024-11-03',
+    startDate: '2025-10-01',
+    endDate: '2025-10-31',
 };
