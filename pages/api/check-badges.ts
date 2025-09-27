@@ -22,9 +22,9 @@ const parseBadgeDate = (dateStr: string): Date => {
     return new Date("Oct 10, 2020");
 };
 
-function renderSetToTableWithHeader(set: Set<string>): string {
+function renderSetToTableWithHeader(set: Set<string>, skill: string): string {
   let html = "<table border='1'>";
-  html += "<thead><tr><th>Fruit</th></tr></thead>";  // Column header
+  html += "<thead><tr><th>Old " + skill + " Badges</th></tr></thead>";  // Column header
   html += "<tbody>";
   Array.from(set).forEach((item) => {
     html += `<tr><td>${item}</td></tr>`;
@@ -138,8 +138,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             tier3Status = True;
         }
 
-        const oldSkillBadgeTable = renderSetToTableWithHeader(oldSkillBadgesSet);
-        const oldNoneSkillBadgeTable = renderSetToTableWithHeader(oldNonSkillBadgesSet);
+        const oldSkillBadgeTable = renderSetToTableWithHeader(oldSkillBadgesSet, "Skill");
+        const oldNoneSkillBadgeTable = renderSetToTableWithHeader(oldNonSkillBadgesSet, "Completed");
         
         // Send the result as a response
         res.status(200).json({
