@@ -22,6 +22,17 @@ const parseBadgeDate = (dateStr: string): Date => {
     return new Date("Oct 10, 2020");
 };
 
+function renderSetToTableWithHeader(set: Set<string>): string {
+  let html = "<table border='1'>";
+  html += "<thead><tr><th>Fruit</th></tr></thead>";  // Column header
+  html += "<tbody>";
+  Array.from(set).forEach((item) => {
+    html += `<tr><td>${item}</td></tr>`;
+  });
+  html += "</tbody></table>";
+  return html;
+}
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Method not allowed' });
@@ -127,6 +138,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             tier3Status = True;
         }
 
+        const oldSkillBadgeTable = renderSetToTableWithHeader(oldSkillBadgesSet);
+        const oldNoneSkillBadgeTable = renderSetToTableWithHeader(oldNonSkillBadgesSet);
+        
         // Send the result as a response
         res.status(200).json({
             finalTier,
@@ -139,8 +153,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             oldSkillBadgesCount: oldSkillBadgesCount,
             oldNonSkillBadgesCount: oldNonSkillBadgesCount,
             totalOldBadgesCount: oldSkillBadgesCount + oldNonSkillBadgesCount,
-            oldSkillBadgesSet: oldNonSkillBadgesSet,
-            oldNonSkillBadgesSet: oldNonSkillBadgesSet,
+            oldSkillBadgesSet: oldSkillBadgeTable,
+            oldNonSkillBadgesSet: oldNoneSkillBadgeTable,
             outOfRangeCount,
         });
     } catch (error) {
