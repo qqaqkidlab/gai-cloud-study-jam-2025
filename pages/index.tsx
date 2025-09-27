@@ -38,8 +38,8 @@ export default function LandingPage() {
 
     return (
         <div style={{ padding: '20px', maxWidth: '1000px', margin: '0 auto' }}>
-            <h1>Google Cloud AI Study Jam 2024 - 生成式 AI 培訓計劃 TW<br></br> 非官方檢查進度/贈品網頁</h1>
-            <p style={{color:'red'}}>活動結束於<strong>2024年11月3日 23:59 [GMT+8 台北時間]</strong>;<br></br>於2024年11月15日前，請填寫 <a href="https://forms.gle/H8gN6eWoGMPqXpB86" target="_blank" rel="noopener noreferrer">回報表格</a> 回報您的學習紀錄。</p>
+            <h1>Google Cloud AI Study Jam 2025 - 生成式 AI 培訓計劃 TW<br></br> 非官方檢查進度/贈品網頁</h1>
+            <p style={{color:'red'}}>活動結束於<strong>2025年10月31日 23:59 [GMT+8 台北時間]</strong>;<br></br>於2025年11月1日前，請填寫 <a href="" target="_blank" rel="noopener noreferrer">回報表格</a> 回報您的學習紀錄。活動結束後，主辦方將統一審核所有參加者的學習成果，並預計於 2025 年 11 月 30 日前寄發通知信，請您耐心等候</p>
             <h2>Check Your Google Cloud Badges 檢查您的進度與勳章 (Tiers里程碑)</h2>
             <form onSubmit={handleSubmit}>
                 <label>
