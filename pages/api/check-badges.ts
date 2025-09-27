@@ -1,7 +1,7 @@
 // pages/api/check-badges.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { JSDOM } from 'jsdom';
-import { validBadges, dateRange } from '../../config/validBadges';
+import { validBadges, dateRange, skillBadgeTrue, skillBadgeFalse, tiers } from '../../config/validBadges';
 
 // Helper function to compare dates
 const isDateInRange = (badgeDate: Date, startDate: Date, endDate: Date): boolean => {
@@ -55,18 +55,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const endDate = new Date(dateRange.endDate);
 
         // Initialize counts for each tier
-        let tier1Count = 0;
-        let tier2Count = 0;
-        let tier3Count = 0;
+        let totalSkillBadgesCount = 27;
+        let totalNonSkillBadgesCount = 55;
         
-        let oldBadges = 0;
-        let old1Count = 0;
-        let old2Count = 0;
-        let old3Count = 0;
+        let skillBadgesCount = 0;
+        let nonSkillBadgesCount = 0;
+        
+        let oldSkillBadgesCount = 0;
+        let oldNonSkillBadgesCount = 0;
+
         let outOfRangeCount = 0;
-
-        let totalBadgesGained = 0;
-
         // Final tier level
         let finalTier = 0;
 
@@ -78,94 +76,65 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 const badgeText = (badge.textContent || '').trim();
                 const badgeDate = parseBadgeDate(badgeText);
                 const match = isDateInRange(badgeDate, startDate, endDate);
-                if (!validBadges.tier1.includes(title) && !validBadges.tier2.includes(title) && !validBadges.tier3.includes(title)){
-                    return;
-                }
 
-                // Check Tier 1 badges
-                if (validBadges.tier1.includes(title)) {
-                    if (match) {
-                        tier1Count++;
-                        totalBadgesGained++; // Increment total gained badges
+                if (skillBadgeTrue.has(title)) {
+                  if (match) {
+                        skillBadgesCount++;
                     } else {
                         if (badgeDate < startDate){
-                            oldBadges++;
-                            old1Count++;
+                            oldSkillBadgesCount++;
                         }
-                        //oldBadges++;
-                        //old1Count++;
                         else {
                             outOfRangeCount++;
                         }
                     }
                 }
 
-                // Check Tier 2 badges (only if Tier 1 is complete)
-                if (validBadges.tier2.includes(title)) {
-                    if (match) {
-                        tier2Count++;
-                        totalBadgesGained++; // Increment total gained badges
+                else if (skillBadgeFalse.has(title)) {
+                  if (match) {
+                        nonSkillBadgesCount++;
                     } else {
                         if (badgeDate < startDate){
-                            oldBadges++;
-                            old2Count++;
+                            oldNonSkillBadgesCount++;
                         }
-                        //oldBadges++;
-                        //old2Count++;
                         else {
                             outOfRangeCount++;
                         }
                     }
                 }
 
-                // Check Tier 3 badges (only if Tier 2 is complete)
-                if (validBadges.tier3.includes(title)) {
-                    if (match) {
-                        tier3Count++;
-                        totalBadgesGained++; // Increment total gained badges
-                    } else {
-                        if (badgeDate < startDate){
-                            oldBadges++;
-                            old3Count++;
-                        }
-                        //oldBadges++;
-                        //old3Count++;
-                        else {
-                            outOfRangeCount++;
-                        }
-                    }
-                }
             });
         });
 
-        // Determine final tier reached based on the completion status of each tier
-        if (tier1Count === validBadges.tier1.length) {
+        let tier1Status = False;
+        let tier2Status = False;
+        let tier3Status = False;
+        
+        if (skillBadgesCount >= 4 && (skillBadgesCount + nonSkillBadgesCount) >= 10) {
             finalTier = 1;
+            tier1Status = True;
         }
-        if (finalTier === 1 && tier2Count === validBadges.tier2.length) {
+        if (skillBadgesCount >= 8 && (skillBadgesCount + nonSkillBadgesCount) >= 20) {
             finalTier = 2;
+            tier2Status = True;
         }
-        if (finalTier === 2 && tier3Count === validBadges.tier3.length) {
+        if (skillBadgesCount >= 12 && (skillBadgesCount + nonSkillBadgesCount) >= 30) {
             finalTier = 3;
+            tier3Status = True;
         }
 
         // Send the result as a response
         res.status(200).json({
             finalTier,
-            tier1Complete: tier1Count === validBadges.tier1.length,
-            tier2Complete: tier2Count === validBadges.tier2.length,
-            tier3Complete: tier3Count === validBadges.tier3.length,
-            tier1BadgesCount: tier1Count,
-            tier2BadgesCount: tier2Count,
-            tier3BadgesCount: tier3Count,
-            old1BadgesCount: old1Count,
-            old2BadgesCount: old2Count,
-            old3BadgesCount: old3Count,
-            totalTier1Badges: validBadges.tier1.length,
-            totalTier2Badges: validBadges.tier2.length,
-            totalTier3Badges: validBadges.tier3.length,
-            oldBadgesCount: oldBadges,
-            totalBadgesGained,
+            tier1Complete: tier1Status,
+            tier2Complete: tier2Status,
+            tier3Complete: tier3Status,
+            skillBadgesCount: skillBadgesCount,
+            nonSkillBadgesCount: nonSkillBadgesCount,
+            totalValidBadgesCount: skillBadgesCount + nonSkillBadgesCount,
+            oldSkillBadgesCount: oldSkillBadgesCount,
+            oldNonSkillBadgesCount: oldNonSkillBadgesCount,
+            totalOldBadgesCount: oldSkillBadgesCount + oldNonSkillBadgesCount,
             outOfRangeCount,
         });
     } catch (error) {
