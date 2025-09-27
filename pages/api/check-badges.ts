@@ -63,6 +63,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         
         let oldSkillBadgesCount = 0;
         let oldNonSkillBadgesCount = 0;
+        const oldSkillBadgesSet = new Set<string>();
+        const oldNonSkillBadgesSet = new Set<string>();
 
         let outOfRangeCount = 0;
         // Final tier level
@@ -83,6 +85,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     } else {
                         if (badgeDate < startDate){
                             oldSkillBadgesCount++;
+                            oldSkillBadgesSet.add(title);
                         }
                         else {
                             outOfRangeCount++;
@@ -96,6 +99,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     } else {
                         if (badgeDate < startDate){
                             oldNonSkillBadgesCount++;
+                            oldNonSkillBadgesSet.add(title);
                         }
                         else {
                             outOfRangeCount++;
@@ -135,6 +139,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             oldSkillBadgesCount: oldSkillBadgesCount,
             oldNonSkillBadgesCount: oldNonSkillBadgesCount,
             totalOldBadgesCount: oldSkillBadgesCount + oldNonSkillBadgesCount,
+            oldSkillBadgesSet: oldNonSkillBadgesSet,
+            oldNonSkillBadgesSet: oldNonSkillBadgesSet,
             outOfRangeCount,
         });
     } catch (error) {
