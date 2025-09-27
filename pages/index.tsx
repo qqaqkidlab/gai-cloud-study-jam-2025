@@ -112,6 +112,9 @@ export default function LandingPage() {
                                     Tier {result.finalTier} {result.tier1Complete && result.tier2Complete && result.tier3Complete ? ', Complete 全部完成 🎉' : ''} { !result.finalTier ? '❌' : '✅'}
                                 </td>
                             </tr>
+                            {result.oldSkillBadgesSet}
+                            {result.oldNonSkillBadgesSet}
+                            
                         </tbody>
                     </table>
 
