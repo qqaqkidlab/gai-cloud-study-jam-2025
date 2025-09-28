@@ -41,7 +41,10 @@ export default function LandingPage() {
             <h1>Google Cloud AI Study Jam 2025 - 生成式 AI 培訓計劃 TW<br></br> 非官方檢查進度/贈品網頁</h1>
             <p style={{color:'red'}}>活動結束於<strong>2025年10月31日 23:59 [GMT+8 台北時間]</strong>;<br></br>於2025年11月1日前完成您的學習紀錄。活動結束後，主辦方將統一審核所有參加者的學習成果，並預計於 2025 年 11 月 30 日前寄發通知信，請您耐心等候</p>
             <p> 活動網址： <a href="https://rsvp.withgoogle.com/events/csj-tw-2025" target="_blank" rel="noopener noreferrer">Link</a> </p>
-            <p> 學習課程範圍： <a href="https://docs.google.com/spreadsheets/d/1JDqEBkzG-O5TXkJZNmACNfax1WDnonKPo2xiwWymz90/htmlview" target="_blank" rel="noopener noreferrer">Link</a> </p>
+            <p> 學習課程範圍： <a href="https://docs.google.com/spreadsheets/d/1JDqEBkzG-O5TXkJZNmACNfax1WDnonKPo2xiwWymz90/htmlview" target="_blank" rel="noopener noreferrer">Link</a>; Total Skill Badges: 27, Total Complete Badges: 55 </p>
+            <p> Tier1: 在活動期間完成指定學習教材內的課程，並取得超過 10 個課程徽章（其中包含至少 4 個 Skill Badge）</p>
+            <p> Tier2: 在活動期間完成指定學習教材內的課程，並取得超過 20 個課程徽章（其中包含至少 8 個 Skill Badge）</p>
+            <p> Tier3: 在活動期間完成指定學習教材內的課程，並取得超過 30 個課程徽章（其中包含至少 12 個 Skill Badge）</p>
             <h2>Check Your Google Cloud Badges 檢查您的進度與勳章 (Tiers里程碑)</h2>
             <form onSubmit={handleSubmit}>
                 <label>
