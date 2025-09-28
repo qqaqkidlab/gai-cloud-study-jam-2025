@@ -114,7 +114,7 @@ export default function LandingPage() {
                             
                         </tbody>
                     </table>
-
+                    <p>{result.totalOldBadgesCount ? '請檢查清單，排除以下課程，以獲得有效勳章積分：' : ''}</p>
                     <table>
                         <thead>
                         <tr>
