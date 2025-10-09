@@ -413,7 +413,7 @@
 
 export const skillBadgeTrue: Set<string> = new Set([
   "The Basics of Google Cloud Compute",
-  "Create and Manage Cloud Resources",
+  "Implementing Cloud Load Balancing for Compute Engine",
   "Set Up an App Dev Environment on Google Cloud",
   "Build a Website on Google Cloud",
   "App Engine: 3 Ways",
