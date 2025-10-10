@@ -420,7 +420,7 @@ export const skillBadgeTrue: Set<string> = new Set([
   "Cloud Run Functions: 3 Ways",
   "Serverless Cloud Run Development",
   "Develop Serverless Apps with Firebase",
-  "Deploy to Kubernetes in Google Cloud",
+  "Deploy Kubernetes Applications on Google Cloud",
   "Manage Kubernetes in Google Cloud",
   "Create and Manage Cloud SQL for PostgreSQL Instances",
   "Analyze BigQuery Data in Connected Sheets",
