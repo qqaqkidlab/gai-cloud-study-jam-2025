@@ -483,7 +483,7 @@ export const skillBadgeFalse: Set<string> = new Set([
   "Work with Gemini Models in BigQuery",
   "Boost Productivity with Gemini in BigQuery",
   "Build intelligent agents with Agent Development Kit (ADK)",
-  "Introduction to Google Agentspace",
+  "Introduction to Gemini Enterprise",
   "Deploy Multi-Agent Systems with Agent Development Kit (ADK) and Agent Engine",
   "Agent Assist and its Gen AI Capabilities",
   "Build Generative AI Agents with Vertex AI and Flutter (single)",
